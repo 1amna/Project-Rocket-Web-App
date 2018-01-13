@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile</title>
+    <link rel="icon" type="image/png" href="images/tab-icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../bootstrap_css/bootstrap.min.css" rel="stylesheet">
+    <link href="../styles/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="scripts/profile-status-msg.js" type="text/javascript"></script>
+
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #211105;">
+            <a href="/" id="home" class="navbar-brand"><img src="../images/rocket-logo.png" width=auto><span style=font-size:14pt;>Project Rocket</span></a>
+
+            <div class="navbar-collapse collapse show" id="navbarsExampleDefault" style="">
+                <ul class="navbar-nav mr-auto"></ul>
+                <a href="/logout" button class="btn btn-info" role="button">Logout</a>
+            </div>
+        </nav>
+
+        <main role="main" class="container">
+
+            <% if (user) { %>
+            <div id="popup">
+                <div>
+                    <img img src="images/status-msg-icon.png" src="images/status-msg-icon.png"/>
+                    <span id="status">Status Message</span>
+                </div>
+                <span class="popuptext" id="myPopup">
+                    <div id="statusMsg">
+                    </div>
+                </span>
+            </div>
+            <script>
+                $(document).click(function () {
+                    getMessageInfo("<%= email %>");
+                });
+            </script>
+            <% } %>
+
+            <div class="starter-template">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <h1 id="username">
+                            <%= username %>
+                        </h1>
+
+                        <!--
+                        <form action="/change-username" method="post" class="form-inline  justify-content-center">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                            <button type="submit" class="btn btn-default">Change Username</button>
+                        </form>-->
+                        <form action="/change-username" method="post" class="form-horizontal" enctype="application/x-www-form-urlencoded">
+                            <div class="username-group">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Enter new username" id="usernameInput" style="font-family: 'Ubuntu', sans-serif;" name="username">
+                                <button class="btn btn-primary btn-lg outline" type="submit">Change Username</button>
+                            </div>
+                        </form>
+
+                        <h3>Your Reviews:</h3>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8" id="Reviews"><br>
+                        <form class="form-group" id="existingReview">
+
+                            <% if(userReviews.length == 0) { %>
+                                <h4>No Reviews Yet! Search For a Country to Share Your Experience</h4>
+                            <% } %>
+
+                            <!--<ul> Having this will mess up the responsiveness-->
+                                <% for(var i=0; i < userReviews.length; i++) { %>
+
+                                    <h4><%= userReviews[i].countryName%></h4>
+
+                                    <% if(userReviews[i].rate == 5) {%>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                    <% } %>
+                                    <% if(userReviews[i].rate == 4) {%>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                    <% } %>
+                                    <% if(userReviews[i].rate == 3) {%>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                    <% } %>
+                                    <% if(userReviews[i].rate == 2) {%>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                    <% } %>
+                                    <% if(userReviews[i].rate == 1) {%>
+                                        <img src="../images/star-on.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                        <img src="../images/star-off.png" width=30px>
+                                    <% } %>
+
+                                    <br>
+
+                                    <textarea class="existingReview" readonly name="Review" cols="90" rows="25" style="opacity: 1;"><%= userReviews[i].content %></textarea>
+
+                                    <br><br>
+
+                                <% } %>
+                            <!--</ul>-->
+                        </form>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+
+            </div>
+
+        </main>
+    </body>
+
+</html>

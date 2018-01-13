@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Project Rocket</title>
+    <link rel="icon" type="image/png" href="images/tab-icon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="bootstrap_css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="scripts/assignment2.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #211105;">
+      <a href="/" id="home" class="navbar-brand"><img src="images/rocket-logo.png" width=auto><span style=font-size:14pt;>Project Rocket</span></a>
+
+      <div class="navbar-collapse collapse show" id="navbarsExampleDefault" style="">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+        <% if (!user){ %>
+        <a href="/login" button class="btn btn-info" role="button">Login</a>
+        <a href="/signup" button class="btn btn-info"role="button">Sign Up</a>
+        <% } else if (user) { %>
+        <a href="/profile" button class="btn btn-info" role="button">Profile</a>
+        <a href="/logout" button class="btn btn-info"role="button">Logout</a>
+        <% } %>
+      </div>
+    </nav>
+
+
+    <!-- <div class="container">
+        <h1> LOGO PLACEHOLDER </h1>
+
+    </div>
+
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
+
+    <main role="main" class="container">
+
+        <% if (user) { %>
+        <div id="popup">
+            <div>
+                <img img src="images/status-msg-icon.png" src="images/status-msg-icon.png"/>
+                <span id="status">Status Message</span>
+            </div>
+            <span class="popuptext" id="myPopup">
+                <div id="statusMsg">
+                </div>
+            </span>
+        </div>
+        <script>
+            $(document).click(function () {
+                getMessageInfo("<%= email %>");
+            });
+        </script>
+        <% } %>
+
+        <script src="scripts/auto-complete.js" type="text/javascript"></script>
+        <div class="starter-template">
+            <!--Display logout message here -->
+            <% if ( message.length > 0 ) { %>
+                <div class="alert alert-success">
+                    <%= message %>
+                </div>
+            <% } %>
+
+
+            <h1 id="currentTitle">Project Rocket</h1>
+
+            <!--Display username here -->
+            <% if (user) { %>
+                <p> Welcome back, <%= user.local.username %>! Share your experience with us!</p>
+                <input type="hidden" id="username" value="<%=user.local.username%>"/>
+            <% } else if (!user) { %>
+                <p id="appDescription">Search for a Country. Share your Experience.</p>
+            <% }%>
+
+            <form class="form-horizontal" id="countrySearch">
+                <div class="search-group">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Enter a country name" aria-label="Search" style="font-family: 'Ubuntu', sans-serif;" id="country">
+                    <button class="btn btn-primary btn-lg outline" type="submit">Search</button>
+                </div>
+            </form>
+            <script src="scripts/auto-complete.js" type="text/javascript"></script>
+            <img src="images/world-map.png" id="worldMap" alt="World Map">
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <h1 id="countryName"></h1>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" id="flag"></div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6" id="capital"></div>
+                    <div class="col-sm-6" id="region"></div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6" id="population"></div>
+                    <div class="col-sm-6" id="languages"></div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6" id="currency"></div>
+                    <div class="col-sm-6" id="code"></div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" id="timezone"></div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" id="currencyConverter">
+                <p><b>Currency Converter </b></p>
+                <form class="form-group" id="currencyConvert">
+                    <input class="form-control" type="convert" placeholder="Enter amount in CAD" aria-label="Currency Converter" style="font-family: 'Ubuntu', sans-serif;" id="currencyInput">
+                    </br>
+                    <div id="conversionResult"></div>
+                    <button class="btn btn-info" type="submit" id="convertButton">Convert</button>
+                </form>
+            </div>
+            <div class="col-sm-2"></div>
+        </div><hr id = "reviewLine">
+
+        <!-- reviews start here -->
+        <div class="row">
+    	    <div class="col-sm-2"></div>
+    	    <div class="col-sm-8" id="Reviews"><br>
+    	    <div class="wrapper">
+
+                <% if (user){ %>
+    	               <p id='selfReviewTitle'><b>Rate and Review Country</b></p>
+                       <form class="form-group" action="/reviews"  method="post" id="writeReview">
+                    <span class="rating">
+                        <input id="rating5" type="radio" name="rating" value="5" checked>
+                        <label for="rating5">5</label>
+                        <input id="rating4" type="radio" name="rating" value="4">
+                        <label for="rating4">4</label>
+                        <input id="rating3" type="radio" name="rating" value="3">
+                        <label for="rating3">3</label>
+                        <input id="rating2" type="radio" name="rating" value="2">
+                        <label for="rating2">2</label>
+                        <input id="rating1" type="radio" name="rating" value="1">
+                        <label for="rating1">1</label>
+                    </span>
+
+                    <input type="hidden" name="countryName" id="countryForm" value=""/>
+                    <input type="hidden" name="rate" id="star" value=""/>
+
+                    <textarea id="reviewInput" name = "content" placeholder="Write your own review of this country!" cols="90" rows="25" wrap="soft|hard" style="opacity: 1;"></textarea><br>
+                    <button class="btn btn-info" style="display: none"type="submit" formaction="/deleteReview" id="deleteReview">Delete</button>
+                    <button class="btn btn-info" style="display: none"type="submit" id="editReview">Edit</button>
+                    <button class="btn btn-info" style="float: right" type="submit" id="reviewSubmit">Submit</button>
+
+                </form>
+            <% }  %>
+
+            <br>
+
+            <p><b>Reviews</b></p>
+            <form class="form-group" id="existingReview">
+                <!-- <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px>
+                <img src="images/star-off.png" width=30px><br>
+                <textarea class="existingReview" readonly  name="Review1" cols="90" rows="25" style="opacity: 1;">Wonderful country with a lot to see!</textarea><br>
+                <br> <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px>
+                <img src="images/star-on.png" width=30px><br>
+                <textarea class="existingReview" readonly name="Review2" cols="90" rows="25" style="opacity: 1;">Highly recommended vacation destination.</textarea><br> -->
+            </form>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+        <!-- reviews end here -->
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8" id="errorHandling"></div>
+            <div class="col-sm-2"></div>
+        </div>
+
+    </main>
+</body>
+</html>
