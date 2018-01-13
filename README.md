@@ -9,7 +9,7 @@
 
 - **Detailed [API documentation](https://github.com/1amna/Project-Rocket-Web-App/blob/master/README.md#restful-api-documentation) is written in the section after Web Application Features**
 
-- **Other important features regarding session management and status messages are written in [Web Application Feature Section](https://github.com/Project-Rocket-Web-App/blob/master/README.md#web-application-features)**
+- **Other important features regarding session management and status messages are written in [Web Application Feature Section](https://github.com/1amna/Project-Rocket-Web-App/blob/master/README.md#web-application-features)**
 
 - When searching for a country, it is better to choose a country name that is suggested by the autocompletion or make sure that you spell it correctly because common names aren't valid inputs (e.g. you need to type United States of America instead of US, USA, America, or United States)
 
