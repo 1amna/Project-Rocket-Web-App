@@ -1,5 +1,5 @@
 ## Group
-Team Rocket
+- Team Rocket
 
 ## Important Notes
 
